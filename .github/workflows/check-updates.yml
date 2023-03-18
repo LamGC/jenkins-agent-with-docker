@@ -9,26 +9,19 @@ permissions:
   contents: write
 
 jobs:
-  # 检查 jenkinsci/docker-inbound-agent 仓库的最新版本，并将最新版本写入到 LATEST_VERSION 文件中
+  # 检查 jenkinsci/docker-inbound-agent 仓库的最新版本，并使用 actions/github-script 向 LATEST_VERSION 文件写入最新版本号。
   check-updates:
-    timeout-minutes: 5
+    timeout-minutes: 30
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check updates
-        uses: actions/github-script@v5
+        run: chmod +x ./update-version.sh && ./update-version.sh
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          script: |
-            const { data: { tag_name: latestVersion } } = await github.repos.getLatestRelease({
-              owner: 'jenkinsci',
-              repo: 'docker-inbound-agent',
-            });
-            await github.repos.createOrUpdateFileContents({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              path: 'LATEST_VERSION',
-              message: `Update LATEST_VERSION to ${latestVersion}`,
-              content: Buffer.from(latestVersion).toString(),
-              sha: context.sha,
-            });
+          commit_message: Update LATEST_VERSION
+          commit_options: '--no-verify'
+          file_pattern: LATEST_VERSION
