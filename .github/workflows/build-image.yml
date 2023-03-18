@@ -23,12 +23,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Get version
+        id: get-version
+        run: echo "::set-output name=version::$(cat LATEST_VERSION)"
       - name: Build and push container image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: lamgc/jenkins-agent-docker:latest, lamgc/jenkins-agent-docker:$(cat LATEST_VERSION)
+          tags: lamgc/jenkins-agent-docker:latest, lamgc/jenkins-agent-docker:${{ steps.get-version.outputs.version }}
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha
           cache-to: type=gha,mode=max
