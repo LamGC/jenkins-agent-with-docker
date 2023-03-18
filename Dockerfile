@@ -4,6 +4,8 @@ FROM jenkins/inbound-agent:${BASE_TAG}
 
 USER root
 
+RUN groupadd -g 987 docker && usermod -aG docker jenkins
+
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
