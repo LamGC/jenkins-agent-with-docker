@@ -19,9 +19,12 @@ jobs:
         uses: actions/checkout@v3
       - name: Check updates
         run: chmod +x ./update-version.sh && ./update-version.sh
+      - name: Get latest version
+        id: latest-version
+        run: echo "::set-output name=version::$(cat LATEST_VERSION)"
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: Update LATEST_VERSION
+          commit_message: Update LATEST_VERSION to ${{ steps.latest-version.outputs.version }}
           commit_options: '--no-verify'
           file_pattern: LATEST_VERSION
