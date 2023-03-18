@@ -28,3 +28,4 @@ jobs:
           commit_message: Update LATEST_VERSION to ${{ steps.latest-version.outputs.version }}
           commit_options: '--no-verify'
           file_pattern: LATEST_VERSION
+          commit_author:
