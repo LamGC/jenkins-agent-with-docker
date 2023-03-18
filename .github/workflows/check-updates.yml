@@ -1,4 +1,4 @@
-name: Build container image
+name: Check upstream updates
 
 on:
   schedule:
