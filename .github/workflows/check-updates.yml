@@ -17,6 +17,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.CHECK_UPDATES_TOKEN }}
       - name: Check updates
         run: chmod +x ./update-version.sh && ./update-version.sh
       - name: Get latest version
