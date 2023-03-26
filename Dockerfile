@@ -4,7 +4,8 @@ FROM jenkins/inbound-agent:${BASE_TAG}
 
 USER root
 
-RUN groupadd -g 987 docker && usermod -aG docker jenkins
+COPY start-agent.sh /usr/local/bin/start.sh
+ENTRYPOINT [ "/usr/local/bin/start.sh" ]
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \
@@ -16,5 +17,4 @@ RUN apt-get update && apt-get install -y \
     apt-get update && apt-get install -y docker-ce-cli docker-buildx-plugin docker-compose-plugin && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-USER jenkins
-
+ENV DOCKER_HOST=unix:///var/run/docker.sock
