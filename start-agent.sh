@@ -23,5 +23,4 @@ if [ $(id -u jenkins) -ne $UID ]; then
 fi
 
 echo "Starting agent..."
-echo "Arguments: $@"
 runuser -u jenkins -m -g docker -- /bin/bash /usr/local/bin/jenkins-agent $@
