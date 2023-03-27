@@ -23,4 +23,5 @@ if [ $(id -u jenkins) -ne $UID ]; then
 fi
 
 echo "Starting agent..."
+echo "Arguments: $@"
 su jenkins -m -s /bin/bash -c "/usr/local/bin/jenkins-agent $@"
