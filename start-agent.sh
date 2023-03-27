@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ $(whoami) != "jenkins" ] || [ $(id -u) == "0" ]; then
-  echo "This script must be run as jenkins"
+if [ $(id -u) != "0" ]; then
+  echo "This script must be run as root"
   exit 1
 fi
 
@@ -22,4 +22,5 @@ if [ $(id -u jenkins) -ne $UID ]; then
   echo "Changed jenkins UID"
 fi
 
+echo "Starting agent..."
 su - jenkins -c "/usr/local/bin/jenkins-agent $@"
