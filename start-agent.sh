@@ -15,9 +15,11 @@ if [ -z "$UID" ]; then
 fi
 if ! grep -q docker /etc/group; then
   groupadd -g $GID docker && usermod -aG docker jenkins
+  echo "Added docker group"
 fi
 if [ $(id -u jenkins) -ne $UID ]; then
   usermod -u $UID jenkins
+  echo "Changed jenkins UID"
 fi
 
-/usr/local/bin/jenkins-agent "$@"
+su - jenkins -c "/usr/local/bin/jenkins-agent $@"
