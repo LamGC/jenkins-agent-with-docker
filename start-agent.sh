@@ -18,5 +18,4 @@ if [ $(id -u jenkins) -ne $UID ]; then
   usermod -u $UID jenkins
 fi
 
-# 使用传入的参数列表启动 Jenkins agent
-exec /usr/local/bin/jenkins-agent "$@"
+/usr/local/bin/jenkins-agent "$@"
