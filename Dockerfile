@@ -6,7 +6,7 @@ USER root
 
 COPY start-agent.sh /usr/local/bin/start.sh
 RUN chmod 755 /usr/local/bin/start.sh
-ENTRYPOINT [ "/usr/local/bin/start.sh" ]
+ENTRYPOINT [ "/bin/bash", "/usr/local/bin/start.sh" ]
 
 RUN apt-get update && apt-get install -y \
     ca-certificates \

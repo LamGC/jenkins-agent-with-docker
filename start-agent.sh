@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ $(whoami) != "jenkins" ] || [ $(id -u) == "0" ]; then
   echo "This script must be run as jenkins"
   exit 1
