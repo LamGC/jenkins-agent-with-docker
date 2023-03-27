@@ -5,6 +5,7 @@ FROM jenkins/inbound-agent:${BASE_TAG}
 USER root
 
 COPY start-agent.sh /usr/local/bin/start.sh
+RUN chmod 755 /usr/local/bin/start.sh
 ENTRYPOINT [ "/usr/local/bin/start.sh" ]
 
 RUN apt-get update && apt-get install -y \
