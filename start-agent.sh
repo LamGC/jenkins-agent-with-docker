@@ -24,4 +24,4 @@ fi
 
 echo "Starting agent..."
 echo "Arguments: $@"
-su jenkins -m -c "/bin/bash /usr/local/bin/jenkins-agent $@"
+runuser -u jenkins -m -g docker -- /bin/bash /usr/local/bin/jenkins-agent $@
