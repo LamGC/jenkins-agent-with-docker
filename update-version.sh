@@ -4,7 +4,7 @@ TEMP_JSON=$(mktemp)
 trap 'rm -f "$TEMP_JSON"' EXIT
 API_URL="https://api.github.com/repos/jenkinsci/docker-agent/releases/latest"
 
-HTTP_CODE=$(curl -s -o "$TEMP_JSON" -w "%{http_code}" "$API_URL")
+HTTP_CODE=$(curl -fsL -o "$TEMP_JSON" -w "%{http_code}" "$API_URL")
 if [ $? -ne 0 ]; then
     echo "Error: Network request failed."
     exit 1
